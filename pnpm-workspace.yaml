@@ -1,0 +1,6 @@
+# pnpm reads build-script approvals here (no longer from package.json).
+# These deps ship native/postinstall builds we trust and need.
+allowBuilds:
+  esbuild: true
+  sharp: true
+  unrs-resolver: true

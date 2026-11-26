@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Brand colour lives HERE and nowhere else. `--primary` is the tutorOS teal.
+ * Components reference semantic tokens (bg-primary, text-muted-foreground, …),
+ * never raw hex. Change the brand by editing --primary below.
+ *
+ * Every token has a light value (:root) and a dark value (.dark). The dark
+ * theme is driven by next-themes (class strategy) — see docs/DESIGN.md.
+ */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    /* tutorOS teal */
+    --primary: 173 80% 32%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 173 60% 94%;
+    --accent-foreground: 173 80% 22%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Status tokens. Base values are text-safe (≥4.5:1 on white); soft fills
+     * use the bg-<token>/10 + text-<token> pattern (see docs/DESIGN.md). */
+    --success: 161 94% 24%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 25 95% 34%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 173 80% 32%;
+
+    /* Dimming scrim for the onboarding spotlight. Always a dark navy (in both
+     * themes) — a scrim must darken, so it can't reuse --foreground, which is
+     * light in dark mode. Consumed via hsl(var(--overlay) / <alpha>). */
+    --overlay: 222 47% 11%;
+
+    --radius: 0.6rem;
+
+    /* Lesson palette — stored as a key (see src/lib/lesson-colors.ts), resolved
+     * here so lesson colours stay token-based (no raw hex in JSX) and theme-aware. */
+    --lesson-violet: 255 70% 60%;
+    --lesson-blue: 217 85% 58%;
+    --lesson-green: 152 58% 42%;
+    --lesson-amber: 43 90% 48%;
+    --lesson-orange: 25 90% 55%;
+    --lesson-pink: 330 78% 60%;
+    --lesson-purple: 280 65% 58%;
+    --lesson-teal: 173 66% 38%;
+  }
+
+  .dark {
+    --background: 222 47% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+
+    /* Lightened teal so it reads on the dark surface. */
+    --primary: 173 65% 45%;
+    --primary-foreground: 222 47% 8%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 173 40% 20%;
+    --accent-foreground: 173 70% 85%;
+
+    --destructive: 0 63% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Lightened for legibility on the dark surface. */
+    --success: 158 64% 52%;
+    --success-foreground: 222 47% 8%;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 222 47% 8%;
+
+    --border: 217 33% 20%;
+    --input: 217 33% 22%;
+    --ring: 173 65% 45%;
+
+    /* Even darker than the dark-mode background so the spotlight still reads. */
+    --overlay: 222 47% 4%;
+
+    /* Lightened lesson palette for the dark surface. */
+    --lesson-violet: 255 75% 72%;
+    --lesson-blue: 217 85% 68%;
+    --lesson-green: 152 55% 55%;
+    --lesson-amber: 43 90% 62%;
+    --lesson-orange: 25 90% 64%;
+    --lesson-pink: 330 80% 70%;
+    --lesson-purple: 280 68% 72%;
+    --lesson-teal: 173 60% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  /* Всегда резервируем место под вертикальный скроллбар — иначе при смене высоты
+   * контента (например, фильтрация списка поиском) полоса появляется/исчезает и
+   * центрированный layout «прыгает» вбок. */
+  html {
+    scrollbar-gutter: stable;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+/*
+ * Accessibility: honour the OS "reduce motion" preference globally. Individual
+ * components may still opt finer control via the motion-reduce: variant.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ],
+    "no-console": ["error", { "allow": ["warn", "error"] }]
+  },
+  "overrides": [
+    {
+      "files": ["*.config.{ts,mjs,js}", "scripts/**", "tests/**", "**/*.test.{ts,tsx}"],
+      "rules": { "no-console": "off" }
+    }
+  ]
+}
